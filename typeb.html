@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<style>
+ .svg{
+		 aligen:center;
+ } 
+</style>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<body>
+		<div id="container" class="row">
+				<div id="svg_field" class="col-md-5"></div>
+				<div class="col-md-5">
+						Text: <input name="apply_text" value="" /> <br>
+						Colour: <input name="colour" value="" /><br>
+						Size: <input name="size" value=" " /><br>
+						<button type="button" class="btn btn-primary" onclick="apply()">적용</button>
+				</div>
+		</div>
+</body>
+
+<script>
+ var svg = d3.select('body #container #svg_field')
+						 .append('svg')
+						 .attr('width', 400)
+						 .attr('height', 400);
+ 
+ $(document).ready(function(){
+		 init();
+		 apply();
+ });
+
+ function init(){
+		 svg.append("path")
+				.attr("id", "wavy") //Unique id of the path
+				.attr("d", "M 0,300 A 200,200 0 0,1 400,300")
+				.style("fill", "none")
+				.style("stroke", "#AAAAAA");
+
+		 //Create an SVG text element and append a textPath element
+		 svg.append("text")
+				.append("textPath") //append a textPath to the text element
+				.attr("xlink:href", "#wavy") //place the ID of the path here
+				.style("text-anchor","middle") //place the text halfway on the arc
+				.attr("startOffset", "50%")
+				.text("Sehwan Yoo test texts");
+ }
+
+ function apply(){
+		 var text = $('[name=apply_text]').val();
+
+		 svg.selectAll('text').remove();
+		 svg.append("text")
+				.append("textPath") //append a textPath to the text element
+				.attr("xlink:href", "#wavy") //place the ID of the path here
+				.style("text-anchor","middle") //place the text halfway on the arc
+				.attr("startOffset", "50%")
+				.text(text);
+ }
+
+
+</script>
+
+>
